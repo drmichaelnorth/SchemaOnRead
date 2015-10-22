@@ -1,0 +1,63 @@
+export(
+        "schemaOnRead",
+        "schemaOnReadDefaultProcessors",
+        "schemaOnReadSimpleProcessors"
+)
+importFrom(
+        "tools",
+        "file_ext"
+)
+importFrom(
+        "readbitmap",
+        "read.bitmap",
+        "image_type"
+)
+importFrom(
+        "network",
+        "read.paj"
+)
+importFrom(
+        "readODS",
+        "read.ods"
+)
+importFrom(
+        "caTools",
+        "read.gif"
+)
+importFrom(
+        "tiff",
+        "readTIFF"
+)
+importFrom(
+        "XLConnect",
+        "loadWorkbook",
+        "getSheets",
+        "readWorksheet"
+)
+importFrom(
+        "ncdf.tools",
+        "infoNcdfVars",
+        "readNcdf"
+)
+importFrom(
+        "XML",
+        "htmlTreeParse",
+        "xmlToList",
+        "xmlParse"
+)
+importFrom(
+        "foreign",
+        "read.epiinfo",
+        "read.arff",
+        "read.dbf",
+        "read.spss",
+        "read.systat"
+)
+importFrom(
+        "readstata13",
+        "read.dta13"
+        )
+import(
+        "XLConnectJars",
+        "testthat"
+)

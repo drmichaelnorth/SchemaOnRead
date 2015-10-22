@@ -1,0 +1,11 @@
+@RELATION arffexample
+
+@ATTRIBUTE data1	REAL
+@ATTRIBUTE data2 	REAL
+@ATTRIBUTE data3 	REAL
+@ATTRIBUTE data4	REAL
+@ATTRIBUTE data5	REAL
+@ATTRIBUTE item1  {option1, option2}
+
+@DATA
+1.4, 2.5, 2.6, 9.3, 10.5, option1
