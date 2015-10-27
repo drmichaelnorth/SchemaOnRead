@@ -101,7 +101,7 @@ lists and their list assignments are shown in Table 1. The default list from "sc
 is used for standard SchemaOnRead entry
 processing. The simple processing list from "schemaOnReadSimpleProcessors()"
 provides an easy to use starting point for fully customized user
-processor lists. 
+processor lists.
 
 Function | List or Lists | Purpose
 -------- | ------------- | -------
@@ -171,4 +171,4 @@ schemaOnRead(path = "../inst/extdata", processors = newProcessors)
 SchemaOnRead provides tools for implementing the schema-on-read technique for R, including a single function call that reads a wide range of file types. It also recursively reads folders (e.g., schemaOnRead("folder")), returning a nested list of the contained elements.
 
 # Acknowledgements
-The submitted manuscript has been created by UChicago Argonne, LLC, Operator of Argonne National Laboratory "Argonne". Argonne, a U.S. Department of Energy Office of Science laboratory, is operated under Contract No. DE-AC02-06CH11357. The U.S. Government retains for itself, and others acting on its behalf, a paid-up nonexclusive, irrevocable worldwide license in said article to reproduce, prepare derivative works, distribute copies to the public, and perform publicly and display publicly, by or on behalf of the Government. Argonne National Laboratory's work was supported under U.S. Department of Energy contract DE-AC02-06CH11357. Argonne National Laboratory’s work was supported under U.S. Department of Energy contract DE-AC02-06CH11357.
+The submitted manuscript has been created by UChicago Argonne, LLC, Operator of Argonne National Laboratory "Argonne". Argonne, a U.S. Department of Energy Office of Science laboratory, is operated under Contract No. DE-AC02-06CH11357. The U.S. Government retains for itself, and others acting on its behalf, a paid-up nonexclusive, irrevocable worldwide license in said article to reproduce, prepare derivative works, distribute copies to the public, and perform publicly and display publicly, by or on behalf of the Government. Argonne National Laboratory's work was supported under U.S. Department of Energy contract DE-AC02-06CH11357. Argonne National Laboratory???s work was supported under U.S. Department of Energy contract DE-AC02-06CH11357.

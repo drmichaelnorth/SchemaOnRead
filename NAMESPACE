@@ -56,8 +56,11 @@ importFrom(
 importFrom(
         "readstata13",
         "read.dta13"
-        )
+)
+importFrom(
+        "utils",
+        "read.csv"
+)
 import(
-        "XLConnectJars",
-        "testthat"
+        "XLConnectJars"
 )

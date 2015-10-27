@@ -4,16 +4,11 @@
 ## Date: September 14, 2015
 ##
 
-## Note the data directory.
-path <- paste(
-        "..", .Platform$file.sep,
-        "..", .Platform$file.sep,
-        "SchemaOnRead", .Platform$file.sep,
-        "inst", .Platform$file.sep,
-        "extdata", .Platform$file.sep,
-        "dir2", .Platform$file.sep,
-        "index.html",
-        sep = "")
+## Note the type of test.
+context("User processors")
+
+## Note the data path.
+path <- system.file("extdata", "image.jpg", package = "SchemaOnRead")
 
 ## Define a new processor.
 newProcessor <- function(path, processors, verbose) {
@@ -32,6 +27,16 @@ newProcessor <- function(path, processors, verbose) {
         }
 
 }
+
+## Define a new processors list.
+newProcessors <- c(newProcessor,
+        SchemaOnRead::schemaOnReadDefaultProcessors())
+
+## Perform a test.
+testthat::expect_that(
+        SchemaOnRead::schemaOnRead(path = path,
+        processors = newProcessors),
+        testthat::equals("Custom Test"))
 
 ## Define a new processors list.
 newProcessors <- c(newProcessor,

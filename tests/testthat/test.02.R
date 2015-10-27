@@ -4,7 +4,10 @@
 ## Date: September 14, 2015
 ##
 
+## Note the type of test.
+context("Nonexistant entries")
+
 ## Perform a test.
 testthat::expect_that(
-        SchemaOnRead::schemaOnRead(""),
+        SchemaOnRead::schemaOnRead("nonexistant"),
         testthat::equals("Entry Does Not Exist"))
