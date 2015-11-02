@@ -35,9 +35,9 @@ importFrom(
         "readWorksheet"
 )
 importFrom(
-        "ncdf.tools",
-        "infoNcdfVars",
-        "readNcdf"
+        "ncdf",
+        "open.ncdf",
+        "get.var.ncdf"
 )
 importFrom(
         "XML",
