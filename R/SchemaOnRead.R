@@ -629,7 +629,7 @@ schemaOnReadProcessEntryDoesNotExist <- function(path = ".",
 formatVariableName <- function(entry) {
 
   # Define the results holder.
-  results <- gsub("[^[:alnum:]]", "_", entry)
+  results <- gsub("[^[:alnum:].]", "_", entry)
 
   # Check the results.
   if (nchar(results) >= 1) {
