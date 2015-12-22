@@ -1,7 +1,7 @@
 ##
 ## File:   SchemaOnRead.R
 ## Author: Michael J. North
-## Date:   November 25, 2015
+## Date:   December 22, 2015
 ##
 
 ##
