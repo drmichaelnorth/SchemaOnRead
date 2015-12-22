@@ -1,3 +1,6 @@
+# This file
+.gitignore
+
 # History files
 .Rhistory
 .Rapp.history
@@ -7,6 +10,7 @@
 
 # RStudio files
 .Rproj.user/
+.RData
 
 # produced vignettes
 vignettes/*.html
