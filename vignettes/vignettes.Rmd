@@ -2,27 +2,29 @@
 title: "SchemaOnRead Vignettes"
 output: rmarkdown::html_vignette
 author: "Michael J. North"
-date: "September 30, 2015"
+date: "November 25, 2015"
 vignette: >
   %\VignetteIndexEntry{SchemaOnRead Vignettes}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8](inputenc)
 ---
 # Introduction
-SchemaOnRead provides tools for implementing the schema-on-read technique for R, including a single function call (e.g., schemaOnRead("filename")) that reads text (TXT), comma separated value (CSV), raster image (BMP, PNG, GIF, TIFF, and JPG), R data (RDS), HDF5, NetCDF, spreadsheet (XLS, XLSX, ODS, and DIF), Weka Attribute-Relation File Format (ARFF), Epi Info (REC), Pajek network (PAJ), R network (NET), Hypertext Markup Language (HTML), SPSS (SAV), Systat (SYS), and Stata (DTA) files. It also recursively reads folders (e.g., schemaOnRead("folder")), returning a nested list of the contained elements.
+SchemaOnRead provides tools for implementing the schema-on-read technique for R, including a single function call (e.g., schemaOnRead("filename")) that reads text (TXT), comma separated value (CSV), raster image (BMP, PNG, GIF, TIFF, and JPG), R data (RDS), HDF5 (H5), NetCDF (CS), spreadsheet (XLS, XLSX, ODS, and DIF), Weka Attribute-Relation File Format (ARFF), Epi Info (REC), Pajek network (PAJ), R network (NET), Hypertext Markup Language (HTML), SPSS (SAV), Systat (SYS), and Stata (DTA) files. It also recursively reads folders (e.g., schemaOnRead("folder")), returning a nested list of the contained elements.
 
 # Example Uses
-One way to use SchemaOnRead is to recursively load a folder. The result is a named list of elements for each entry in the folder's tree. The element names are converted to valid R variable names corresponding to the file or folder names. Sub-elements (e.g., files or subfolders) of a folder can be accessed using the R named list ("\$") operator followed by the sub-element name.
+One way to use SchemaOnRead is to recursively load a folder. The result is a named list of elements for each entry in the folder's tree. The element names are converted to valid R variable names corresponding to the file or folder names. Sub-elements (e.g., files or subfolders) of a folder can be accessed using the R named list ("\$") operator followed by the sub-element name. Files or folders with names that do not conform to standard
+R variable naming requirements can be accessed using single quote notation (e.g.,
+"results$'Nonconforming Name!'").
 
 Another way to use SchemaOnRead is to conveniently load a file without needing to handle the specifics of the file format. In this case the result is a variable containing the file contents.
 
 An example showing how to read a folder tree starting in "../inst/extdata" is shown below. In this case, the contents of the "dir1/Data.csv" file within "../inst/extdata" is shown by accessing "results\$dir1\$Data.csv" as needed. The text file is as follows:
 
 ```
-Name,Size,Weight
-A,Small,1
-B,Medium,2
-C,Large,3
+  Name   Size Weight
+1    A  Small      1
+2    B Medium      2
+3    C  Large      3
 ```
 
 The results in R are as follows:
@@ -36,14 +38,12 @@ print(results$dir1$Data.csv)
 Individual files can also be easily accessed. An example XML source file in the "../inst/extdata/data.xml" folder is as follows:
 
 ```
+{xml_document}
 <example>
-<to>A</to>
-<from>B</from>
-<title>Important
-        <subtitle>File</subtitle>
-</title>
-<text>Read me.</text>
-</example>
+[1] <to>A</to>
+[2] <from>B</from>
+[3] <title>Important<subtitle>File</subtitle></title>
+[4] <text>Read me.</text>
 ```
 
 The results in R are as follows:
@@ -70,64 +70,28 @@ results from the first processor to return a non-null value is stored as the
 content for the entry and processing of that entry stops. All of the results
 are stored in a named list. The order of the resulting list is given by the
 processing order. The list names are taken from the entry names (e.g., file or
-folder names). List names are converted to valid R variable names by replacing
-everything other than non-alphanumeric characters and dots with underscores. If
-the resulting variable name is already defined then "\_A"
-is repeatedly appended to the name until it becomes unique.
+folder names). Files and and directories with names that do not conform to
+R variable naming requirements can be accessed using single quote notation (e.g.,
+"results$'Nonconforming Name!'").
 
 Several special processors are defined. These include processors for nonexistent
 entries, directories, and entries of unknown types.
-
-The "schemaOnReadProcessEntryDoesNotExist" processor returns null if the given
-entry exists and returns the value "Entry Does Not Exist"
-if entry file does
-not. It is meant to be the initial processor in most processor lists to
-intercept nonexistent entries before they waste execution time in other
-processors. In rare cases, special processing may need to be done on
-nonexistent entries so these unusual processors would run first.
 
 The "schemaOnReadProcessDirectory" processor handles directories recursively as
 previously discussed. It is intended to be the second processor to run in
 normal lists.
 
-The "schemaOnReadProcessDefaultFile" processor accepts all entries that
-exist. It returns the value "File Type Unknown"
-as a string when it succeeds.
+The "processDefaultFile" processor accepts all entries that
+exist. It returns the value "File Type Unknown" as a string when it succeeds.
 It is meant to be last processor to run to provide a default value for file
 types that are not otherwise recognized.
 
-SchemaOnRead itself includes two processing lists. The predefined processor functions used in both
-lists and their list assignments are shown in Table 1. The default list from "schemaOnReadDefaultProcessors()"
+SchemaOnRead itself includes two processing lists.
+The default list from "defaultProcessors()"
 is used for standard SchemaOnRead entry
-processing. The simple processing list from "schemaOnReadSimpleProcessors()"
+processing. The simple processing list from "simpleProcessors()"
 provides an easy to use starting point for fully customized user
 processor lists.
-
-Function | List or Lists | Purpose
--------- | ------------- | -------
-schemaOnReadProcessDirectory(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default and Simple | Recursively Read Folders
-schemaOnReadProcessCSVFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Comma Separated Value Files
-schemaOnReadProcessTextFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Text Files
-schemaOnReadProcessRDSFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read R Data Files
-schemaOnReadProcessXMLFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Extensible Markup Language Files
-schemaOnReadProcessXLSandXLSXFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Simple | Read Microsoft Excel Files
-schemaOnReadProcessDIFFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Data Interchange Format Files
-schemaOnReadProcessODSFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Open Document Spreadsheet Files
-schemaOnReadProcessStata13File(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Stata Files
-schemaOnReadProcessBitmapsFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Bitmap Files
-schemaOnReadProcessGIFFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Graphics Interchange Format Files
-schemaOnReadProcessTIFFFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read TIFF Files
-schemaOnReadProcessNetCDandH5FFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Simple | Read NetCDF and HDF5 Files
-schemaOnReadProcessPajekFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Pajek Network Files
-schemaOnReadProcessHTMLFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read HTML Files
-schemaOnReadProcessARFFFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Weka ARFF Files
-schemaOnReadProcessEPIINFOFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read Epi Info REC Files
-schemaOnReadProcessSPSSFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default | Read SPSS Files
-schemaOnReadProcessEntryDoesNotExist(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default and Simple | Accepts All Nonexistent Files and Returns "Entry Does Not
-Exist"
-schemaOnReadProcessDefaultFile(path = ".", processors = schemaOnReadDefaultProcessors(), verbose = FALSE) | Default and Simple | Accepts All Existing Files and Returns "File Type Unknown"
-
-**Table 1**: SchemaOnRead Predefined Processors
 
 # User-Defined Processors
 New processors can be defined to support user-specified work.
@@ -139,29 +103,22 @@ function. User-specified processors can be added to this list to create a
 fully customized tool chain. An example showing how to define a new processor follows.
 
 ```
-## Cite the needed library.
+## Load the needed library.
 library(SchemaOnRead)
 
 ## Define a new processor.
-newProcessor <- function(path, processors, verbose) {
+newProcessor <- function(path, ...) {
 
-        ## Check the given path.
-        if ((file.exists(path)) && (tolower(tools::file_ext(path)) == "tbd")) {
+  # Check the file existance and extensions.
+  if (!SchemaOnRead::checkExtensions(path, c("xyz"))) return(NULL)
 
-                ## Return a new result...
-                return("Put Your Code for Processing TBD Files Here...")
-
-        } else {
-
-                ## Note that the file does not exist.
-                return("Entry Does Not Exist")
-
-        }
+  ## As an example, attempt to read an XYZ file as a CSV file.
+  read.csv(path, header = FALSE)
 
 }
 
 ## Define a new processors list.
-newProcessors <- c(newProcessor, schemaOnReadDefaultProcessors())
+newProcessors <- c(newProcessor, SchemaOnRead::defaultProcessors())
 
 # Use the new processors list.
 schemaOnRead(path = "../inst/extdata", processors = newProcessors)

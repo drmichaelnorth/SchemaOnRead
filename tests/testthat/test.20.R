@@ -1,49 +1,36 @@
 ##
-## File: test_20.R
+## File:   test_20.R
 ## Author: Michael J. North
-## Date: September 14, 2015
+## Date:   November 25, 2015
 ##
 
 ## Note the type of test.
 context("User processors")
 
 ## Note the data path.
-path <- system.file("extdata", "image.jpg", package = "SchemaOnRead")
+path <- system.file("", "Data.xyz", package = "SchemaOnRead")
 
 ## Define a new processor.
 newProcessor <- function(path, processors, verbose) {
 
-        ## Check the given path.
-        if (file.exists(path)) {
+  # Check the file existance and extensions.
+  if (!SchemaOnRead::checkExtensions(path, c("xyz"))) return(NULL)
 
-                ## Return a custom value.
-                return("Custom Test")
-
-        } else {
-
-                ## Note that the file does not exist.
-                return("Entry Does Not Exist")
-
-        }
+  ## As an example, attempt to read an XYZ file as a CSV file.
+  read.csv(path, header = FALSE)
 
 }
 
 ## Define a new processors list.
-newProcessors <- c(newProcessor,
-        SchemaOnRead::schemaOnReadDefaultProcessors())
+newProcessors <- c(newProcessor, SchemaOnRead::defaultProcessors())
 
 ## Perform a test.
-testthat::expect_that(
-        SchemaOnRead::schemaOnRead(path = path,
-        processors = newProcessors),
-        testthat::equals("Custom Test"))
+testthat::expect_that(length(SchemaOnRead::schemaOnRead(path = path,
+  processors = newProcessors)), testthat::equals(1))
 
 ## Define a new processors list.
-newProcessors <- c(newProcessor,
-        SchemaOnRead::schemaOnReadSimpleProcessors())
+newProcessors <- c(newProcessor, SchemaOnRead::simpleProcessors())
 
 ## Perform a test.
-testthat::expect_that(
-        SchemaOnRead::schemaOnRead(path = path,
-        processors = newProcessors),
-        testthat::equals("Custom Test"))
+testthat::expect_that(length(SchemaOnRead::schemaOnRead(path = path,
+  processors = newProcessors)), testthat::equals(1))

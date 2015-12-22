@@ -1,7 +1,7 @@
 ##
-## File: test_04.R
+## File:   test_04.R
 ## Author: Michael J. North
-## Date: September 14, 2015
+## Date:   November 25, 2015
 ##
 
 ## Note the type of test.
@@ -11,6 +11,5 @@ context("PNG files")
 path <- system.file("extdata", "image.png", package = "SchemaOnRead")
 
 ## Perform a test.
-testthat::expect_that(
-        length(SchemaOnRead::schemaOnRead(path)),
-        testthat::equals(23680))
+testthat::expect_that(length(SchemaOnRead::schemaOnRead(path)),
+  testthat::equals(23680))

@@ -1,66 +1,63 @@
 export(
-        "schemaOnRead",
-        "schemaOnReadDefaultProcessors",
-        "schemaOnReadSimpleProcessors"
+  "schemaOnRead",
+  "defaultProcessors",
+  "simpleProcessors",
+  "checkExtensions"
 )
 importFrom(
-        "tools",
-        "file_ext"
+  "tools",
+  "file_ext"
 )
 importFrom(
-        "readbitmap",
-        "read.bitmap",
-        "image_type"
+  "readbitmap",
+  "read.bitmap",
+  "image_type"
 )
 importFrom(
-        "network",
-        "read.paj"
+  "network",
+  "read.paj"
 )
 importFrom(
-        "readODS",
-        "read.ods"
+  "readODS",
+  "read.ods"
 )
 importFrom(
-        "caTools",
-        "read.gif"
+  "caTools",
+  "read.gif"
 )
 importFrom(
-        "tiff",
-        "readTIFF"
+  "tiff",
+  "readTIFF"
 )
 importFrom(
-        "XLConnect",
-        "loadWorkbook",
-        "getSheets",
-        "readWorksheet"
+  "readxl",
+  "excel_sheets",
+  "read_excel"
 )
 importFrom(
-        "ncdf",
-        "open.ncdf",
-        "get.var.ncdf"
+  "ncdf4",
+  "nc_open",
+  "ncvar_get"
 )
 importFrom(
-        "XML",
-        "htmlTreeParse",
-        "xmlToList",
-        "xmlParse"
+  "xml2",
+  "read_xml",
+  "read_html"
 )
 importFrom(
-        "foreign",
-        "read.epiinfo",
-        "read.arff",
-        "read.dbf",
-        "read.spss",
-        "read.systat"
+  "haven",
+  "read_spss",
+  "read_stata",
+  "read_sas"
 )
 importFrom(
-        "readstata13",
-        "read.dta13"
+  "foreign",
+  "read.epiinfo",
+  "read.arff",
+  "read.dbf",
+  "read.systat"
 )
 importFrom(
-        "utils",
-        "read.csv"
-)
-import(
-        "XLConnectJars"
+  "utils",
+  "read.csv"
 )

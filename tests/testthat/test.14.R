@@ -1,7 +1,7 @@
 ##
-## File: test_14.R
+## File:   test_14.R
 ## Author: Michael J. North
-## Date: September 14, 2015
+## Date:   November 25, 2015
 ##
 
 ## Note the type of test.
@@ -9,9 +9,8 @@ context("NET files")
 
 ## Note the data path.
 path <- system.file("extdata", paste("dir2", .Platform$file.sep,
-        "Example.net", sep = ""), package = "SchemaOnRead")
+  "Example.net", sep = ""), package = "SchemaOnRead")
 
 ## Perform a test.
-testthat::expect_that(
-        length(SchemaOnRead::schemaOnRead(path)),
-        testthat::equals(5))
+testthat::expect_that(length(SchemaOnRead::schemaOnRead(path)),
+  testthat::equals(5))
