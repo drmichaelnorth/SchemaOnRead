@@ -1,4 +1,4 @@
-SchemaOnRead v1.0.2 (Release date: 2015-11-30)
+SchemaOnRead v1.0.2 (Release date: 2015-12-23)
 ==============
 
 Changes:
@@ -11,7 +11,6 @@ Changes:
 * Replaced the XLConnect package with the readxl package.
 * Replaced the readstata13 package with the haven package.
 * Switched to using the haven package instead of foreign when possible.
-
 
 SchemaOnRead v1.0.1 (Release date: 2015-11-03)
 ==============
